@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brick Wall Pattern</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .brick-wall {
+            background-image: linear-gradient(rgba(71, 145, 169, 0.9), rgba(71, 145, 169, 0.9)),
+                repeating-linear-gradient(
+                    #ccc 0px,
+                    #ccc 2px,
+                    transparent 2px,
+                    transparent 32px
+                ),
+                repeating-linear-gradient(
+                    90deg,
+                    #ccc 0px,
+                    #ccc 2px,
+                    transparent 2px,
+                    transparent 72px
+                );
+            position: relative;
+        }
+
+        .brick {
+            width: 70px;
+            height: 30px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+        }
+
+        .brick:nth-child(even) {
+            margin-left: 35px;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gray-100">
+    <div class="container mx-auto p-4">
+        <div class="brick-wall h-screen rounded-lg shadow-xl p-8 grid grid-cols-6 gap-0 content-start">
+            <!-- Bricks are generated via JavaScript -->
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const wall = document.querySelector('.brick-wall');
+            const rows = Math.ceil(window.innerHeight / 32);
+            const bricksPerRow = Math.ceil(window.innerWidth / 72);
+
+            for (let i = 0; i < rows * bricksPerRow; i++) {
+                const brick = document.createElement('div');
+                brick.className = 'brick';
+                brick.addEventListener('mouseenter', () => {
+                    brick.style.backgroundColor = 'rgba(255, 255, 255, 0.3)';
+                });
+                brick.addEventListener('mouseleave', () => {
+                    brick.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+                });
+                wall.appendChild(brick);
+            }
+        });
+
+        // Make it responsive
+        window.addEventListener('resize', () => {
+            const wall = document.querySelector('.brick-wall');
+            wall.innerHTML = '';
+            const rows = Math.ceil(window.innerHeight / 32);
+            const bricksPerRow = Math.ceil(window.innerWidth / 72);
+
+            for (let i = 0; i < rows * bricksPerRow; i++) {
+                const brick = document.createElement('div');
+                brick.className = 'brick';
+                brick.addEventListener('mouseenter', () => {
+                    brick.style.backgroundColor = 'rgba(255, 255, 255, 0.3)';
+                });
+                brick.addEventListener('mouseleave', () => {
+                    brick.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+                });
+                wall.appendChild(brick);
+            }
+        });
+    </script>
+<script>document.body.addEventListener('wheel', e => { if (!e.ctrlKey) return; e.preventDefault(); return }, { passive: false })</script>
+	</body>
+</html>
